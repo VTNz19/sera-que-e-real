@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Será que é real? Guia contra deepfakes</title>
+<meta name="description" content="Guia completo para identificar vídeos e áudios falsos feitos por inteligência artificial: sinais, ferramentas, golpes comuns, o que fazer se for vítima e um quiz para treinar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root {
+  --bg: #FFF8E1;
+  --surface: #FFFFFF;
+  --ink: #12183F;
+  --muted: #444B73;
+  --blue: #2B3CFF;
+  --on-blue: #FFFFFF;
+  --yellow: #FFD23F;
+  --coral: #FF5A5F;
+  --mint: #2EC4B6;
+  --tint-coral: #FFE1E1;
+  --tint-mint: #D3F5EE;
+  --tint-blue: #DDE1FF;
+  --tint-yellow: #FFEDB0;
+  --line: #E4DCC0;
+  --dark: #12183F;
+  --on-dark: #FFFFFF;
+  --f-display: "Fredoka", "Trebuchet MS", sans-serif;
+  --f-body: "Nunito", "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1030;
+    --surface: #161B45;
+    --ink: #F1F2FF;
+    --muted: #B5BAE0;
+    --blue: #5B68FF;
+    --tint-coral: #3A2030;
+    --tint-mint: #123A3C;
+    --tint-blue: #1F2562;
+    --tint-yellow: #3B3412;
+    --line: #2B3166;
+    --dark: #080B24;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 18px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.08; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--yellow); color: #12183F; padding: 8px 14px; border-radius: 8px; z-index: 100; }
+.skip:focus { left: 8px; }
+:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+/* Navegação */
+.nav { position: sticky; top: 0; z-index: 50; background: var(--blue); color: var(--on-blue); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
+.brand { font-family: var(--f-display); font-weight: 700; font-size: 22px; text-decoration: none; white-space: nowrap; }
+.brand span { color: var(--yellow); }
+.links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.links::-webkit-scrollbar { display: none; }
+.links a { text-decoration: none; font-weight: 800; font-size: 15px; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
+.links a:hover { background: rgba(255,255,255,0.18); }
+
+/* Hero */
+.hero { background: var(--blue); color: var(--on-blue); padding-block: 48px 0; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 28px; align-items: center; }
+.pill { display: inline-block; background: var(--yellow); color: #12183F; font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 16px; border-radius: 999px; }
+.hero h1 { font-size: clamp(44px, 8vw, 88px); text-transform: uppercase; margin-block: 18px 16px; }
+.hero h1 em { font-style: normal; color: var(--yellow); }
+.hero p.lead { font-size: clamp(18px, 2.4vw, 22px); font-weight: 700; max-width: 34em; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.btn { display: inline-block; text-decoration: none; font-family: var(--f-display); font-weight: 600; font-size: 18px; padding: 13px 26px; border-radius: 999px; border: 0; cursor: pointer; }
+.btn.y { background: var(--yellow); color: #12183F; }
+.btn.o { background: transparent; color: #fff; box-shadow: inset 0 0 0 3px #fff; }
+.btn:hover { transform: translateY(-2px); }
+.hero svg { width: 100%; max-width: 330px; height: auto; justify-self: center; display: block; margin-bottom: -4px; }
+.wave { display: block; width: 100%; height: 56px; background: var(--bg); border-radius: 44px 44px 0 0; margin-top: -2px; position: relative; }
+
+/* Seções */
+section { padding-block: 64px 8px; }
+.eyebrow { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .eyebrow { color: var(--yellow); } }
+h2 { font-size: clamp(32px, 5vw, 48px); margin-block: 6px 14px; }
+h3 { font-size: 24px; margin-bottom: 6px; }
+.intro { color: var(--muted); max-width: 44em; font-size: 19px; }
+.grid { display: grid; gap: 18px; margin-top: 30px; }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { border-radius: 28px; padding: 24px; min-width: 0; }
+.card p { color: var(--ink); font-size: 17px; }
+.card.coral { background: var(--tint-coral); }
+.card.mint { background: var(--tint-mint); }
+.card.blue { background: var(--tint-blue); }
+.card.yellow { background: var(--tint-yellow); }
+.card.white { background: var(--surface); box-shadow: 0 0 0 2px var(--line); }
+.tag { display: inline-block; font-family: var(--f-display); font-weight: 600; font-size: 14px; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; color: #12183F; }
+.tag.coral { background: var(--coral); } .tag.mint { background: var(--mint); } .tag.yellow { background: var(--yellow); }
+.tag.blue { background: var(--blue); color: #fff; }
+.why { margin-top: 10px; font-size: 16px; color: var(--muted); }
+.why b { color: var(--ink); }
+
+/* Passos numerados */
+.steps { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+.steps li { counter-increment: s; display: flex; gap: 18px; align-items: flex-start; background: var(--surface); border-radius: 28px; padding: 20px 22px; box-shadow: 0 0 0 2px var(--line); }
+.steps li::before { content: counter(s); flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--yellow); color: #12183F; font-family: var(--f-display); font-weight: 700; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.steps b { font-family: var(--f-display); font-weight: 600; font-size: 22px; display: block; }
+.steps span { color: var(--muted); font-size: 17px; }
+
+/* Faixa de destaque */
+.callout { background: var(--dark); color: var(--on-dark); border-radius: 36px; padding: 32px; margin-top: 30px; display: flex; gap: 26px; align-items: center; }
+.callout h3 { color: var(--yellow); font-size: 30px; }
+.callout p { font-size: 18px; margin-top: 8px; }
+.callout svg { flex: none; width: 120px; height: auto; }
+
+/* Tabela */
+.tablebox { overflow-x: auto; margin-top: 30px; border-radius: 24px; box-shadow: 0 0 0 2px var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 16px; }
+th, td { text-align: left; padding: 14px 18px; vertical-align: top; border-bottom: 1px solid var(--line); }
+th { font-family: var(--f-display); font-weight: 600; font-size: 16px; background: var(--tint-blue); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 800; white-space: nowrap; }
+
+/* Quiz */
+.quiz { background: var(--surface); border-radius: 36px; padding: 30px; margin-top: 30px; box-shadow: 0 0 0 2px var(--line); }
+.q-meta { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-display); font-weight: 600; font-size: 16px; color: var(--muted); }
+.bar { height: 10px; background: var(--tint-blue); border-radius: 99px; margin-block: 10px 22px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--blue); border-radius: 99px; transition: width .3s; }
+.q-text { font-family: var(--f-display); font-weight: 600; font-size: clamp(22px, 3.4vw, 28px); line-height: 1.2; margin-bottom: 18px; }
+.opts { display: grid; gap: 10px; }
+.opt { text-align: left; font: inherit; font-weight: 700; color: var(--ink); background: var(--bg); border: 3px solid var(--line); border-radius: 20px; padding: 14px 18px; cursor: pointer; }
+.opt:hover:not([disabled]) { border-color: var(--blue); }
+.opt[disabled] { cursor: default; }
+.opt.right { border-color: var(--mint); background: var(--tint-mint); }
+.opt.wrong { border-color: var(--coral); background: var(--tint-coral); }
+.explain { margin-top: 18px; border-radius: 20px; padding: 16px 20px; background: var(--tint-yellow); font-size: 17px; }
+.next { margin-top: 18px; }
+.btn.b { background: var(--blue); color: #fff; }
+
+/* FAQ */
+details { background: var(--surface); border-radius: 22px; padding: 6px 22px; box-shadow: 0 0 0 2px var(--line); }
+details + details { margin-top: 12px; }
+summary { cursor: pointer; font-family: var(--f-display); font-weight: 600; font-size: 21px; padding: 14px 0; }
+details p { padding-bottom: 16px; color: var(--muted); }
+
+footer { margin-top: 72px; background: var(--yellow); color: #12183F; border-radius: 44px 44px 0 0; padding-block: 36px 40px; }
+footer h2 { font-size: clamp(26px, 4vw, 38px); margin: 0 0 10px; }
+footer p { font-weight: 700; font-size: 16px; max-width: 46em; }
+footer p + p { margin-top: 8px; font-weight: 500; }
+
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero svg { max-width: 240px; }
+  .g3, .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .g2, .g3, .g4 { grid-template-columns: 1fr; }
+  .callout { flex-direction: column; align-items: flex-start; }
+  .links { display: none; }
+  .quiz { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<nav class="nav" aria-label="Seções">
+  <div class="wrap">
+    <a class="brand" href="#topo">Será que é <span>real?</span></a>
+    <div class="links">
+      <a href="#o-que-e">O que é</a>
+      <a href="#video">Vídeo</a>
+      <a href="#audio">Áudio</a>
+      <a href="#limites">Limites</a>
+      <a href="#metodo">Método</a>
+      <a href="#golpes">Golpes</a>
+      <a href="#vitima">Fui vítima</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="topo">
+  <div class="wrap">
+    <div>
+      <span class="pill">Guia · Inteligência Artificial</span>
+      <h1>Vídeo ou áudio <em>falso?</em></h1>
+      <p class="lead">A IA hoje copia um rosto ou uma voz com poucos segundos de gravação. Este guia explica como os deepfakes funcionam, quais sinais observar, o que fazer antes de compartilhar e como se proteger de golpes.</p>
+      <div class="cta">
+        <a class="btn y" href="#metodo">Ver o passo a passo</a>
+        <a class="btn o" href="#quiz">Testar meu olho</a>
+      </div>
+    </div>
+    <svg viewBox="0 0 290 400" role="img" aria-label="Celular mostrando um rosto com metade distorcida e uma onda de áudio">
+      <rect x="30" y="14" width="214" height="372" rx="38" fill="#12183F"/>
+      <rect x="44" y="34" width="186" height="332" rx="26" fill="#FFF3C4"/>
+      <rect x="104" y="20" width="66" height="8" rx="4" fill="#2B3CFF"/>
+      <path d="M82 150 Q82 78 137 78 Q192 78 192 150 Z" fill="#12183F"/>
+      <circle cx="137" cy="160" r="58" fill="#FFC79A"/>
+      <path d="M80 140 Q96 92 137 96 Q180 92 194 140 Q160 118 137 122 Q108 118 80 140 Z" fill="#12183F"/>
+      <circle cx="116" cy="162" r="7" fill="#12183F"/><circle cx="158" cy="162" r="7" fill="#12183F"/>
+      <path d="M112 192 Q137 214 162 192" fill="none" stroke="#12183F" stroke-width="6" stroke-linecap="round"/>
+      <rect x="137" y="108" width="62" height="12" fill="#FF5A5F" opacity="0.85"/>
+      <rect x="145" y="136" width="62" height="10" fill="#2EC4B6" opacity="0.9"/>
+      <rect x="132" y="170" width="70" height="12" fill="#FF5A5F" opacity="0.85"/>
+      <rect x="150" y="196" width="48" height="8" fill="#2B3CFF" opacity="0.9"/>
+      <rect x="172" y="120" width="16" height="16" fill="#FFD23F"/>
+      <g fill="#2B3CFF">
+        <rect x="62" y="296" width="9" height="24" rx="4.5"/><rect x="78" y="286" width="9" height="44" rx="4.5"/>
+        <rect x="94" y="272" width="9" height="72" rx="4.5"/><rect x="110" y="284" width="9" height="48" rx="4.5"/>
+        <rect x="126" y="262" width="9" height="92" rx="4.5"/><rect x="142" y="280" width="9" height="56" rx="4.5"/>
+        <rect x="158" y="290" width="9" height="36" rx="4.5"/><rect x="174" y="276" width="9" height="64" rx="4.5"/>
+        <rect x="190" y="292" width="9" height="32" rx="4.5"/><rect x="206" y="300" width="9" height="16" rx="4.5"/>
+      </g>
+      <circle cx="236" cy="62" r="40" fill="#FF5A5F"/>
+      <path d="M212 92 L196 116 L232 98 Z" fill="#FF5A5F"/>
+      <text x="236" y="80" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="56" fill="#FFFFFF">?</text>
+    </svg>
+  </div>
+  <span class="wave" aria-hidden="true"></span>
+</header>
+
+<main id="conteudo">
+
+<section id="o-que-e">
+  <div class="wrap">
+    <div class="eyebrow">Entenda primeiro</div>
+    <h2>O que é um deepfake</h2>
+    <p class="intro">Deepfake é um vídeo, áudio ou imagem criado ou alterado por inteligência artificial para parecer que uma pessoa disse ou fez algo que nunca disse nem fez. O nome vem de <i>deep learning</i> (aprendizado profundo) somado a <i>fake</i> (falso). Nem todo conteúdo feito com IA é enganoso, mas todo deepfake tenta convencer você de que é real.</p>
+
+    <div class="grid g4">
+      <div class="card coral"><span class="tag coral">Vídeo</span><h3>Troca de rosto</h3><p>O rosto de uma pessoa é colocado sobre o corpo de outra em um vídeo já existente.</p></div>
+      <div class="card yellow"><span class="tag yellow">Vídeo</span><h3>Sincronia labial</h3><p>Um vídeo real é alterado para a boca acompanhar um áudio novo, que a pessoa nunca falou.</p></div>
+      <div class="card mint"><span class="tag mint">Áudio</span><h3>Voz clonada</h3><p>Um modelo aprende o timbre e o jeito de falar e lê qualquer texto com a voz de alguém.</p></div>
+      <div class="card blue"><span class="tag blue">Vídeo</span><h3>Totalmente gerado</h3><p>A cena inteira, com pessoas e movimento, é criada do zero a partir de uma descrição em texto.</p></div>
+    </div>
+
+    <h3 style="margin-top: 44px">Como um deepfake é feito, em linhas gerais</h3>
+    <ol class="steps">
+      <li><div><b>Coleta de material</b><span>Fotos, vídeos e áudios da pessoa, em geral públicos: redes sociais, entrevistas, vídeos de aniversário. Alguns sistemas de voz precisam de poucos segundos.</span></div></li>
+      <li><div><b>Treino ou ajuste do modelo</b><span>Um modelo de IA aprende o padrão do rosto, da voz e dos gestos. Ferramentas prontas escondem esse trabalho atrás de um aplicativo simples.</span></div></li>
+      <li><div><b>Geração e refinamento</b><span>O sistema produz o conteúdo falso. Quem quer enganar ainda corrige erros visíveis, mistura com trechos reais e piora a qualidade de propósito para esconder falhas.</span></div></li>
+      <li><div><b>Distribuição</b><span>O material é espalhado em grupos de mensagem e redes sociais, quase sempre com urgência ou apelo emocional, para ser repassado antes que alguém confira.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="video">
+  <div class="wrap">
+    <div class="eyebrow">Observe</div>
+    <h2>Sinais no vídeo</h2>
+    <p class="intro">Pause, aumente a tela e veja de novo em velocidade menor. Os erros costumam aparecer nos pontos em que a IA tem mais dificuldade: movimento rápido, contornos e detalhes pequenos.</p>
+
+    <div class="grid g2">
+      <div class="card coral"><span class="tag coral">Rosto</span><h3>Bordas borradas ou tremidas</h3><p>Observe a linha entre o rosto e o cabelo, o pescoço e as orelhas. O contorno pode tremer, brilhar ou parecer recortado.</p><p class="why"><b>Por que acontece:</b> o rosto falso é gerado em separado e depois encaixado no vídeo original.</p></div>
+      <div class="card coral"><span class="tag coral">Boca</span><h3>Lábios fora do tempo</h3><p>Sons como "b", "p" e "m" exigem lábios fechados. Se a boca não fecha quando deveria, desconfie. Dentes que mudam de forma também são pista.</p><p class="why"><b>Por que acontece:</b> o modelo acompanha o som de forma aproximada e erra os detalhes de encaixe.</p></div>
+      <div class="card coral"><span class="tag coral">Olhos</span><h3>Piscar e olhar estranhos</h3><p>Olhar fixo demais, piscadas raras, mecânicas ou desencontradas entre os dois olhos. Reflexos nos olhos que não combinam com a luz da cena.</p><p class="why"><b>Por que acontece:</b> muitos modelos aprendem de fotos, e fotos quase sempre mostram olhos abertos.</p></div>
+      <div class="card coral"><span class="tag coral">Pele e luz</span><h3>Pele lisa demais, sombras erradas</h3><p>Rosto sem poros nem marcas, com brilho diferente do resto do corpo. Sombras que caem para um lado enquanto a luz vem do outro.</p><p class="why"><b>Por que acontece:</b> o rosto é desenhado sem conhecer a iluminação real da cena.</p></div>
+      <div class="card coral"><span class="tag coral">Detalhes</span><h3>Mãos, dentes, brincos e óculos</h3><p>Dedos a mais ou a menos, joias que somem entre um quadro e outro, armação de óculos que atravessa o rosto, texto de fundo com letras sem sentido.</p><p class="why"><b>Por que acontece:</b> estruturas pequenas e repetitivas são difíceis para a IA manter iguais ao longo do tempo.</p></div>
+      <div class="card coral"><span class="tag coral">Movimento</span><h3>Cabeça que vira de lado</h3><p>Em muitos deepfakes de troca de rosto, o rosto distorce quando a pessoa vira de perfil, passa a mão na frente ou se aproxima da câmera.</p><p class="why"><b>Por que acontece:</b> há poucos exemplos de perfil e de rosto parcialmente coberto nos dados de treino.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="audio">
+  <div class="wrap">
+    <div class="eyebrow">Escute</div>
+    <h2>Sinais no áudio</h2>
+    <p class="intro">Voz clonada é mais difícil de notar que um vídeo falso, principalmente em ligações e áudios curtos, com ruído e pressa. Por isso o contexto pesa tanto quanto o som.</p>
+
+    <div class="grid g3">
+      <div class="card mint"><span class="tag mint">Entonação</span><h3>Voz sem emoção</h3><p>Fala plana em um assunto grave, ou emoção exagerada que não combina com as palavras.</p></div>
+      <div class="card mint"><span class="tag mint">Ritmo</span><h3>Pausas e emendas</h3><p>Frases coladas, pausas no lugar errado, ênfase estranha e sotaque que muda no meio da fala.</p></div>
+      <div class="card mint"><span class="tag mint">Respiração</span><h3>Sem fôlego</h3><p>Pessoas respiram, hesitam, tossem e repetem palavras. Um texto longo sem nenhum fôlego é suspeito.</p></div>
+      <div class="card mint"><span class="tag mint">Ambiente</span><h3>Fundo artificial</h3><p>Silêncio perfeito demais, ou ruído de fundo que não combina com o lugar onde a pessoa diz estar.</p></div>
+      <div class="card mint"><span class="tag mint">Pronúncia</span><h3>Nomes e gírias</h3><p>Erros em nomes próprios, apelidos da família ou expressões que a pessoa nunca usaria.</p></div>
+      <div class="card mint"><span class="tag mint">Contexto</span><h3>Pedido com pressa</h3><p>Dinheiro, senha ou código, tudo para agora, e "não conta para ninguém". A pressa é a principal marca do golpe.</p></div>
+    </div>
+
+    <div class="callout">
+      <svg viewBox="0 0 130 150" role="img" aria-label="Celular tocando com ondas de voz">
+        <rect x="26" y="8" width="78" height="134" rx="18" fill="#FFD23F"/>
+        <rect x="34" y="24" width="62" height="96" rx="10" fill="#12183F"/>
+        <circle cx="65" cy="132" r="5" fill="#12183F"/>
+        <circle cx="65" cy="60" r="14" fill="#FFC79A"/>
+        <path d="M42 108 Q42 82 65 82 Q88 82 88 108 Z" fill="#FF5A5F"/>
+        <path d="M10 50 Q2 72 10 94" fill="none" stroke="#2EC4B6" stroke-width="6" stroke-linecap="round"/>
+        <path d="M120 50 Q128 72 120 94" fill="none" stroke="#2EC4B6" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h3>Combine uma palavra-código</h3>
+        <p>Escolha com a família uma palavra ou pergunta que só vocês saibam e que não esteja em nenhuma rede social. Se alguém ligar pedindo dinheiro com urgência, peça a palavra. Se não souber, desligue e ligue de volta para o número que você já tem salvo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="limites">
+  <div class="wrap">
+    <div class="eyebrow">Seja realista</div>
+    <h2>Por que olhar não basta</h2>
+    <p class="intro">Esta é a parte mais importante do guia. Os sinais acima ajudam, mas têm limites sérios.</p>
+
+    <div class="grid g2">
+      <div class="card white"><h3>A tecnologia melhora rápido</h3><p>Erros que eram comuns, como dedos extras e piscar estranho, vão sendo corrigidos. Um guia de sinais envelhece. A pergunta confiável é "de onde veio isto?", não "parece verdadeiro?".</p></div>
+      <div class="card white"><h3>A compressão esconde falhas</h3><p>Vídeos reenviados em aplicativos de mensagem perdem qualidade. Isso apaga pistas e também cria defeitos falsos em vídeos reais. Um vídeo real borrado não é prova de fraude.</p></div>
+      <div class="card white"><h3>Detectores automáticos erram</h3><p>Ferramentas que prometem dizer "isto é IA" com porcentagem podem errar nos dois sentidos. Use o resultado como mais um indício, nunca como veredito.</p></div>
+      <div class="card white"><h3>Achar uma falha não prova nada sozinho</h3><p>E não achar falhas também não prova que é verdadeiro. Um vídeo pode ser real e estar fora de contexto, ou ser falso e não ter erro visível. Por isso o método abaixo olha a origem.</p></div>
+    </div>
+
+    <div class="callout">
+      <div>
+        <h3>Marcas de origem ajudam, mas não resolvem tudo</h3>
+        <p>Algumas empresas inserem marcas d'água invisíveis ou "credenciais de conteúdo" em imagens e vídeos gerados por IA, para registrar como foram feitos. Quando existem, ajudam. Mas nem todo conteúdo tem essas marcas, e elas podem ser removidas. A ausência de marca não prova que algo é real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap">
+    <div class="eyebrow">Na prática</div>
+    <h2>Método de verificação em 5 passos</h2>
+    <p class="intro">Siga na ordem. Os primeiros passos levam um minuto e resolvem a maior parte dos casos.</p>
+
+    <ol class="steps">
+      <li><div><b>Pare e perceba a emoção</b><span>Raiva, medo, pena ou euforia fazem repassar sem pensar. Conteúdo que provoca emoção forte e pede ação imediata merece mais cuidado, não menos.</span></div></li>
+      <li><div><b>Veja quem publicou e onde</b><span>Quem postou primeiro? O perfil é oficial, antigo e tem histórico? Existe uma versão do vídeo no canal verdadeiro da pessoa ou da instituição? Perfis novos, sem foto ou com nome parecido com o original são sinal de alerta.</span></div></li>
+      <li><div><b>Procure a mesma informação em outras fontes</b><span>Se um fato importante é verdade, veículos de imprensa e agências de checagem também vão noticiar. Pesquise as palavras principais da fala ou do título, junto com termos como "é verdade" ou "checagem".</span></div></li>
+      <li><div><b>Faça busca reversa de imagem</b><span>Tire capturas de tela de quadros do vídeo e envie para uma busca reversa. Isso mostra se o vídeo já circulou antes, em outro contexto ou com outra legenda. A extensão InVID-WeVerify ajuda a extrair quadros de vídeos.</span></div></li>
+      <li><div><b>Confirme por outro caminho</b><span>Se o conteúdo envolve alguém que você conhece, ligue de volta para o número salvo, ou fale com outra pessoa da família. Se envolve dinheiro, confirme pessoalmente ou por um canal oficial antes de qualquer transferência.</span></div></li>
+    </ol>
+
+    <h3 style="margin-top: 44px">Onde conferir</h3>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Ferramenta</th><th>Para que serve</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td>Google Lens e Google Imagens</td><td>Busca reversa de imagens e capturas de tela</td><td>Boa para descobrir se a imagem já circulou antes.</td></tr>
+          <tr><td>TinEye</td><td>Busca reversa de imagens, com foco em achar a versão mais antiga</td><td>Complementa o Google. Teste os dois.</td></tr>
+          <tr><td>InVID-WeVerify</td><td>Extensão de navegador para analisar vídeos: extrai quadros e facilita a busca reversa</td><td>Criada para jornalistas e checadores. Exige um pouco de prática.</td></tr>
+          <tr><td>Agência Lupa, Aos Fatos, Projeto Comprova, g1 Fato ou Fake</td><td>Checagens de boatos e conteúdos virais já analisados</td><td>Pesquise o tema no site antes de compartilhar.</td></tr>
+          <tr><td>Canal oficial da pessoa ou instituição</td><td>Confirmar se aquilo foi mesmo dito ou publicado</td><td>É o teste mais forte: a fonte original nega ou confirma.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="golpes">
+  <div class="wrap">
+    <div class="eyebrow">Cuidado</div>
+    <h2>Golpes mais comuns com IA</h2>
+    <p class="intro">O deepfake costuma ser só a isca. O objetivo real é fazer você transferir dinheiro, passar dados ou repassar uma mentira.</p>
+
+    <div class="grid g2">
+      <div class="card yellow"><span class="tag yellow">Familiar</span><h3>Voz de parente pedindo Pix</h3><p>Um áudio ou ligação com a voz de filho, pai ou amigo, dizendo que está em apuros, com número novo e pedido de transferência urgente.</p><p class="why"><b>Defesa:</b> palavra-código e ligar de volta para o número antigo.</p></div>
+      <div class="card yellow"><span class="tag yellow">Trabalho</span><h3>"Chefe" em chamada de vídeo</h3><p>Alguém com a imagem e a voz do chefe ou de um executivo pede pagamento urgente ou envio de dados da empresa.</p><p class="why"><b>Defesa:</b> confirmar por outro canal e seguir o processo formal de pagamento da empresa.</p></div>
+      <div class="card yellow"><span class="tag yellow">Investimento</span><h3>Famoso recomendando ganho fácil</h3><p>Vídeo de artista, apresentador ou empresário garantindo lucro rápido em um investimento, produto ou sorteio.</p><p class="why"><b>Defesa:</b> procurar o anúncio nos perfis oficiais. Promessa de retorno garantido já é motivo para desconfiar.</p></div>
+      <div class="card yellow"><span class="tag yellow">Imagem íntima</span><h3>Montagens e chantagem</h3><p>Fotos ou vídeos íntimos falsos criados com o rosto da vítima, usados para ameaçar ou humilhar.</p><p class="why"><b>Defesa:</b> não pagar, guardar provas, denunciar. Veja a seção "Fui vítima".</p></div>
+      <div class="card yellow"><span class="tag yellow">Política</span><h3>Vídeo chocante em época de eleição</h3><p>Candidato ou autoridade "confessando" algo ou dizendo algo absurdo, em vídeo sem fonte e muito compartilhado. Propaganda eleitoral com deepfake é proibida pela Justiça Eleitoral.</p><p class="why"><b>Defesa:</b> buscar em veículos de imprensa e agências de checagem antes de repassar.</p></div>
+      <div class="card yellow"><span class="tag yellow">Cadastro</span><h3>Biometria e verificação falsas</h3><p>Fotos e vídeos de uma pessoa podem ser usados para tentar enganar sistemas de reconhecimento facial e de voz.</p><p class="why"><b>Defesa:</b> ativar verificação em duas etapas e evitar usar só voz ou rosto como senha.</p></div>
+    </div>
+
+    <h3 style="margin-top: 44px">Como reduzir o risco</h3>
+    <div class="grid g3">
+      <div class="card blue"><h3>Combine regras</h3><p>Palavra-código com a família e regra clara na empresa: pagamento só com confirmação por mais de um canal.</p></div>
+      <div class="card blue"><h3>Cuide da exposição</h3><p>Perfis abertos com muitos vídeos e áudios facilitam a clonagem. Ajuste a privacidade das suas redes e as de crianças da família.</p></div>
+      <div class="card blue"><h3>Proteja as contas</h3><p>Use verificação em duas etapas e nunca informe códigos recebidos por SMS ou aplicativo, mesmo que a voz pareça de alguém conhecido.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="vitima">
+  <div class="wrap">
+    <div class="eyebrow">Se acontecer</div>
+    <h2>Fui vítima de um deepfake. E agora?</h2>
+    <p class="intro">Respire. A culpa é de quem criou o golpe. Agir rápido aumenta as chances de reverter o prejuízo.</p>
+
+    <ol class="steps">
+      <li><div><b>Se houve transferência, ligue para o banco agora</b><span>Peça o bloqueio ou o pedido de devolução do Pix o mais rápido possível, antes de qualquer outra coisa. Cada minuto conta.</span></div></li>
+      <li><div><b>Guarde as provas</b><span>Salve capturas de tela, links, nomes de perfil, números de telefone, horários e o próprio áudio ou vídeo. Não apague a conversa.</span></div></li>
+      <li><div><b>Denuncie na plataforma</b><span>Use o botão de denúncia da rede social ou do aplicativo e peça a retirada do conteúdo. Informe que se trata de conteúdo falso gerado por IA.</span></div></li>
+      <li><div><b>Registre um boletim de ocorrência</b><span>Pode ser feito na delegacia ou, em muitos estados, pela delegacia virtual. Leve as provas organizadas.</span></div></li>
+      <li><div><b>Busque apoio</b><span>Em casos de imagem íntima falsa, procure também apoio jurídico e psicológico, e converse com alguém de confiança. A SaferNet Brasil mantém canal de ajuda e denúncia para crimes na internet.</span></div></li>
+    </ol>
+    <p class="intro" style="margin-top: 20px; font-size: 16px">Criar ou espalhar deepfake para enganar, ameaçar ou humilhar alguém pode configurar crimes como estelionato, falsidade, injúria, difamação e divulgação de conteúdo íntimo sem consentimento. A lei muda com frequência, então consulte um advogado ou a Defensoria Pública para o seu caso.</p>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="wrap">
+    <div class="eyebrow">Treine</div>
+    <h2>Quiz: o que você faria?</h2>
+    <p class="intro">Cinco situações reais do dia a dia. Escolha a melhor atitude.</p>
+
+    <div class="quiz" id="quizBox" aria-live="polite">
+      <div class="q-meta"><span id="qCount">Pergunta 1 de 5</span><span id="qScore">Acertos: 0</span></div>
+      <div class="bar" aria-hidden="true"><i id="qBar"></i></div>
+      <div class="q-text" id="qText"></div>
+      <div class="opts" id="qOpts"></div>
+      <div class="explain" id="qExplain" hidden></div>
+      <button class="btn b next" id="qNext" hidden>Próxima</button>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Dúvidas</div>
+    <h2>Perguntas frequentes</h2>
+    <div style="margin-top: 26px">
+      <details><summary>Dá para saber com certeza que um vídeo é falso?</summary><p>Nem sempre pelo olho. A confirmação mais forte vem da origem: a pessoa ou a instituição desmente, uma checagem séria analisa o caso, ou o vídeo original é encontrado. Sinais visuais são indícios, não prova.</p></details>
+      <details><summary>Todo vídeo borrado ou com erro é deepfake?</summary><p>Não. Vídeos reais também ficam borrados, tremidos ou com áudio ruim, principalmente depois de serem reenviados várias vezes. Qualidade ruim não prova fraude.</p></details>
+      <details><summary>Existe aplicativo que detecta deepfake com certeza?</summary><p>Não. Detectores automáticos podem ajudar, mas erram nos dois sentidos e ficam desatualizados quando surgem novos modelos. Use como apoio e confirme sempre pela fonte.</p></details>
+      <details><summary>Minha voz pode ser clonada?</summary><p>Se existirem áudios ou vídeos seus disponíveis, sim, é tecnicamente possível. Por isso vale limitar a exposição pública, combinar uma palavra-código com a família e desconfiar de pedidos urgentes, mesmo com voz conhecida.</p></details>
+      <details><summary>Posso compartilhar para "avisar os outros" que é falso?</summary><p>Prefira compartilhar a checagem, e não o conteúdo falso. Repostar o vídeo, mesmo com um aviso, ainda ajuda a espalhá-lo e muita gente vê só o vídeo, sem a legenda.</p></details>
+      <details><summary>Nem toda IA em vídeo é ruim, certo?</summary><p>Certo. Efeitos de cinema, dublagem automática, acessibilidade e criação artística usam essa tecnologia de forma legítima. O problema é o uso para enganar. A pergunta importante é se o conteúdo avisa que foi feito com IA ou se tenta se passar por real.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Nenhum sinal sozinho prova nada. Na dúvida, não compartilhe.</h2>
+    <p>Confiar na origem do conteúdo é a melhor defesa. As ferramentas de IA evoluem rápido, então os sinais deste guia podem perder a validade com o tempo.</p>
+    <p>Conteúdo educativo, atualizado em novembro de 2026. Não substitui orientação jurídica nem policial.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var data = [
+    { q: "Você recebe um áudio de WhatsApp com a voz da sua filha, chorando, dizendo que o celular quebrou e pedindo um Pix urgente para um número novo. O que fazer?",
+      o: ["Fazer o Pix rápido e conferir depois", "Ligar para o número antigo dela ou pedir a palavra-código antes de qualquer coisa", "Responder o áudio perguntando o que aconteceu"],
+      a: 1, e: "Urgência, número novo e pedido de dinheiro são a combinação clássica do golpe da voz clonada. Confirme por outro caminho antes de transferir." },
+    { q: "Um vídeo mostra um apresentador famoso garantindo que um investimento dobra seu dinheiro em uma semana. O vídeo está em um anúncio. O que fazer?",
+      o: ["Investir um valor pequeno para testar", "Procurar o anúncio nos perfis oficiais da pessoa e desconfiar da promessa de lucro garantido", "Compartilhar com amigos para eles aproveitarem"],
+      a: 1, e: "Retorno garantido e rápido é sinal de golpe. Se a pessoa de fato divulgou aquilo, estará nos canais oficiais dela." },
+    { q: "Um vídeo chocante de um político confessando algo grave viraliza no grupo da família, sem fonte nenhuma. O que fazer?",
+      o: ["Repassar com um aviso de que é grave", "Procurar o fato em veículos de imprensa e agências de checagem antes de repassar", "Concluir que é verdade porque está sendo muito compartilhado"],
+      a: 1, e: "Ser muito compartilhado não prova nada. Se for verdadeiro e importante, a imprensa também estará noticiando." },
+    { q: "Em uma chamada de vídeo, alguém com a imagem e a voz do seu chefe pede uma transferência urgente e sigilosa para um fornecedor novo. O que fazer?",
+      o: ["Fazer a transferência, pois você viu e ouviu o chefe", "Confirmar por outro canal e seguir o processo normal de pagamento da empresa", "Pedir que ele repita o pedido na mesma chamada"],
+      a: 1, e: "Ver e ouvir a pessoa já não é prova. Confirme por outro canal e use o fluxo formal de pagamento." },
+    { q: "Você analisou um vídeo e não achou nenhum dos sinais de falsificação: ele parece perfeito. O que concluir?",
+      o: ["Que é verdadeiro", "Que ainda não dá para saber: é preciso checar a origem e a fonte", "Que é falso, porque está perfeito demais"],
+      a: 1, e: "Não achar falhas não prova que o vídeo é real, e uma qualidade alta também não prova que é falso. A origem é o que decide." }
+  ];
+  var i = 0, score = 0, answered = false;
+  var $ = function (id) { return document.getElementById(id); };
+  var text = $("qText"), opts = $("qOpts"), expl = $("qExplain"), next = $("qNext");
+
+  function render() {
+    answered = false;
+    $("qCount").textContent = "Pergunta " + (i + 1) + " de " + data.length;
+    $("qScore").textContent = "Acertos: " + score;
+    $("qBar").style.width = (i / data.length * 100) + "%";
+    text.textContent = data[i].q;
+    opts.innerHTML = "";
+    expl.hidden = true; next.hidden = true;
+    data[i].o.forEach(function (label, idx) {
+      var b = document.createElement("button");
+      b.className = "opt"; b.type = "button"; b.textContent = label;
+      b.addEventListener("click", function () { pick(idx); });
+      opts.appendChild(b);
+    });
+  }
+  function pick(idx) {
+    if (answered) return;
+    answered = true;
+    var d = data[i], btns = opts.children;
+    for (var k = 0; k < btns.length; k++) {
+      btns[k].disabled = true;
+      if (k === d.a) btns[k].classList.add("right");
+    }
+    if (idx === d.a) { score++; } else { btns[idx].classList.add("wrong"); }
+    $("qScore").textContent = "Acertos: " + score;
+    expl.textContent = (idx === d.a ? "Isso mesmo. " : "Quase. ") + d.e;
+    expl.hidden = false;
+    next.textContent = i === data.length - 1 ? "Ver resultado" : "Próxima";
+    next.hidden = false;
+  }
+  function finish() {
+    $("qBar").style.width = "100%";
+    $("qCount").textContent = "Resultado";
+    var msg = score === data.length ? "Excelente! Você pensa como um checador."
+      : score >= 3 ? "Bom resultado. Revise o método de 5 passos para fechar as lacunas."
+      : "Vale reler o guia. O mais importante é sempre confirmar pela origem.";
+    text.textContent = "Você acertou " + score + " de " + data.length + ".";
+    opts.innerHTML = "";
+    expl.textContent = msg; expl.hidden = false;
+    next.textContent = "Refazer o quiz"; next.hidden = false;
+    next.onclick = function () { i = 0; score = 0; next.onclick = advance; render(); };
+  }
+  function advance() { i++; if (i >= data.length) { finish(); } else { render(); } }
+  next.onclick = advance;
+  render();
+})();
+</script>
+</body>
+</html>
