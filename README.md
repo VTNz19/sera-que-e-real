@@ -1,17 +1,12 @@
-# 🕵️‍♂️ Será que é real? — Guia Prático contra Deepfakes
-
-[![Acesse o Site](https://img.shields.io/badge/🌐_Acessar_Guia_Online-2B3CFF?style=for-the-badge)](https://vtnz19.github.io/sera-que-e-real/)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+# Será que é real? — Guia Prático contra Deepfakes
 
 > **Entenda como é fácil criar vídeos e áudios utilizando inteligência artificial e saiba por que é importante verificar os conteúdos antes de acreditar ou compartilhar, evitando cair em golpes e espalhar fake news.**
 
-🔗 **Acesse o projeto online:** [https://vtnz19.github.io/sera-que-e-real/](https://vtnz19.github.io/sera-que-e-real/)
+**Acesse o projeto online:** [https://vtnz19.github.io/sera-que-e-real/](https://vtnz19.github.io/sera-que-e-real/)
 
 ---
 
-## 📖 Sobre o Projeto
+## Sobre o Projeto
 
 Com o avanço das ferramentas de Inteligência Artificial generativa, clonar uma voz ou criar um vídeo falso (*deepfake*) leva apenas alguns segundos. O **Será que é real?** é um guia educativo, interativo e acessível criado para ajudar qualquer pessoa a identificar manipulações digitais, entender os limites da detecção visual e adotar hábitos seguros antes de compartilhar conteúdos ou realizar transferências financeiras.
 
@@ -19,34 +14,23 @@ Este projeto foi desenvolvido como uma iniciativa de conscientização e educaç
 
 ---
 
-## ✨ O que você vai encontrar no guia
+## O que você vai encontrar no guia
 
-- **🧠 O que é um Deepfake:** Explicação clara sobre troca de rosto, sincronia labial, clonagem de voz e vídeos 100% gerados por IA, além das etapas de como são produzidos.
-- **🎬 Demonstração na Prática:** Vídeo demonstrativo mostrando como um avatar de IA é criado facilmente (exemplo com HeyGen) e por que a verificação é indispensável.
-- **👁️ Sinais no Vídeo:** O que observar em bordas, sincronia labial (`b`, `p`, `m`), piscadas, iluminação, pele, mãos, óculos e movimentos de perfil.
-- **🎧 Sinais no Áudio:** Como perceber falhas de entonação, ritmo, ausência de respiração, ruído de fundo artificial e pedidos urgentes (além da dica da **palavra-código** em família).
-- **⚠️ Limites da Detecção:** Por que apenas "olhar e ouvir" não basta — o impacto da compressão no WhatsApp/redes sociais e a falibilidade de detectores automáticos.
-- **🔍 Método de Verificação em 5 Passos:** Passo a passo rápido para checar a origem, buscar em fontes confiáveis, usar busca reversa de imagem e confirmar por outro canal.
-- **🛠️ Ferramentas de Checagem:** Tabela de referência rápida com *Google Lens*, *TinEye*, *InVID-WeVerify* e agências de checagem (*Lupa*, *Aos Fatos*, *Comprova*, *Fato ou Fake*).
-- **🚨 Golpes Mais Comuns com IA:** Falso parente pedindo Pix, falso chefe em videochamada, famosos promovendo investimentos fraudulentos, montagens íntimas e desinformação eleitoral.
-- **🛡️ Fui Vítima. E agora?:** Guia de ação rápida para bloqueio bancário (MED/Pix), coleta de provas, denúncia nas plataformas, Boletim de Ocorrência e apoio (SaferNet).
-- **🎯 Quiz Interativo:** 5 situações reais do dia a dia com feedback imediato para testar sua atenção contra golpes e deepfakes.
-- **❓ Perguntas Frequentes (FAQ):** Respostas diretas para as principais dúvidas sobre IA e vídeos falsos.
-
----
-
-## 🚀 Tecnologias e Diferenciais Técnicos
-
-O projeto foi construído com arquitetura **Zero-Build** (HTML5, CSS3 e JavaScript Vanilla em arquivo único), garantindo carregamento instantâneo, facilidade de manutenção e compatibilidade total:
-
-- **Responsivo (Mobile-First):** Layout adaptável para celulares, tablets e desktops.
-- **Tema Claro e Escuro Automático:** Suporte nativo a `prefers-color-scheme: dark`.
-- **Acessibilidade (a11y):** Navegação por teclado, link de pulo para o conteúdo (`skip link`), contraste otimizado, `aria-live` no quiz e respeito à preferência de movimento reduzido (`prefers-reduced-motion`).
-- **Performance:** Carregamento otimizado de mídia (`loading="lazy"` e `preload="metadata"`) e ilustrações vetoriais em SVG inline.
+- ** O que é um Deepfake:** Explicação clara sobre troca de rosto, sincronia labial, clonagem de voz e vídeos 100% gerados por IA, além das etapas de como são produzidos.
+- ** Demonstração na Prática:** Vídeo demonstrativo mostrando como um avatar de IA é criado facilmente (exemplo com HeyGen) e por que a verificação é indispensável.
+- ** Sinais no Vídeo:** O que observar em bordas, sincronia labial (`b`, `p`, `m`), piscadas, iluminação, pele, mãos, óculos e movimentos de perfil.
+- ** Sinais no Áudio:** Como perceber falhas de entonação, ritmo, ausência de respiração, ruído de fundo artificial e pedidos urgentes (além da dica da **palavra-código** em família).
+- ** Limites da Detecção:** Por que apenas "olhar e ouvir" não basta — o impacto da compressão no WhatsApp/redes sociais e a falibilidade de detectores automáticos.
+- ** Método de Verificação em 5 Passos:** Passo a passo rápido para checar a origem, buscar em fontes confiáveis, usar busca reversa de imagem e confirmar por outro canal.
+- ** Ferramentas de Checagem:** Tabela de referência rápida com *Google Lens*, *TinEye*, *InVID-WeVerify* e agências de checagem (*Lupa*, *Aos Fatos*, *Comprova*, *Fato ou Fake*).
+- ** Golpes Mais Comuns com IA:** Falso parente pedindo Pix, falso chefe em videochamada, famosos promovendo investimentos fraudulentos, montagens íntimas e desinformação eleitoral.
+- ** Fui Vítima. E agora?:** Guia de ação rápida para bloqueio bancário (MED/Pix), coleta de provas, denúncia nas plataformas, Boletim de Ocorrência e apoio (SaferNet).
+- ** Quiz Interativo:** 5 situações reais do dia a dia com feedback imediato para testar sua atenção contra golpes e deepfakes.
+- ** Perguntas Frequentes (FAQ):** Respostas diretas para as principais dúvidas sobre IA e vídeos falsos.
 
 ---
 
-## 📂 Estrutura de Arquivos
+## Estrutura de Arquivos
 
 ```text
 sera-que-e-real/
@@ -58,7 +42,7 @@ sera-que-e-real/
 
 ---
 
-## 💻 Como Executar Localmente
+## Como Executar Localmente
 
 Como o site não possui dependências externas nem etapa de build, basta clonar o repositório e abrir o arquivo `index.html` no navegador:
 
@@ -75,7 +59,7 @@ start index.html
 
 ---
 
-## 🌐 Publicação (GitHub Pages)
+## Publicação (GitHub Pages)
 
 O projeto está configurado para publicação direta via **GitHub Pages**:
 
@@ -86,6 +70,6 @@ O projeto está configurado para publicação direta via **GitHub Pages**:
 
 ---
 
-## 📌 Aviso Legal
+## Aviso Legal
 
 Conteúdo de caráter exclusivamente **educativo e informativo**. As orientações presentes no guia não substituem aconselhamento jurídico, pericial ou atendimento policial.
