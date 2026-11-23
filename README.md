@@ -16,17 +16,17 @@ Este projeto foi desenvolvido como uma iniciativa de conscientização e educaç
 
 ## O que você vai encontrar no guia
 
-- ** O que é um Deepfake:** Explicação clara sobre troca de rosto, sincronia labial, clonagem de voz e vídeos 100% gerados por IA, além das etapas de como são produzidos.
-- ** Demonstração na Prática:** Vídeo demonstrativo mostrando como um avatar de IA é criado facilmente (exemplo com HeyGen) e por que a verificação é indispensável.
-- ** Sinais no Vídeo:** O que observar em bordas, sincronia labial (`b`, `p`, `m`), piscadas, iluminação, pele, mãos, óculos e movimentos de perfil.
-- ** Sinais no Áudio:** Como perceber falhas de entonação, ritmo, ausência de respiração, ruído de fundo artificial e pedidos urgentes (além da dica da **palavra-código** em família).
-- ** Limites da Detecção:** Por que apenas "olhar e ouvir" não basta — o impacto da compressão no WhatsApp/redes sociais e a falibilidade de detectores automáticos.
-- ** Método de Verificação em 5 Passos:** Passo a passo rápido para checar a origem, buscar em fontes confiáveis, usar busca reversa de imagem e confirmar por outro canal.
-- ** Ferramentas de Checagem:** Tabela de referência rápida com *Google Lens*, *TinEye*, *InVID-WeVerify* e agências de checagem (*Lupa*, *Aos Fatos*, *Comprova*, *Fato ou Fake*).
-- ** Golpes Mais Comuns com IA:** Falso parente pedindo Pix, falso chefe em videochamada, famosos promovendo investimentos fraudulentos, montagens íntimas e desinformação eleitoral.
-- ** Fui Vítima. E agora?:** Guia de ação rápida para bloqueio bancário (MED/Pix), coleta de provas, denúncia nas plataformas, Boletim de Ocorrência e apoio (SaferNet).
-- ** Quiz Interativo:** 5 situações reais do dia a dia com feedback imediato para testar sua atenção contra golpes e deepfakes.
-- ** Perguntas Frequentes (FAQ):** Respostas diretas para as principais dúvidas sobre IA e vídeos falsos.
+- **O que é um Deepfake:** Explicação clara sobre troca de rosto, sincronia labial, clonagem de voz e vídeos 100% gerados por IA, além das etapas de como são produzidos.
+- **Demonstração na Prática:** Vídeo demonstrativo mostrando como um avatar de IA é criado facilmente (exemplo com HeyGen) e por que a verificação é indispensável.
+- **Sinais no Vídeo:** O que observar em bordas, sincronia labial (`b`, `p`, `m`), piscadas, iluminação, pele, mãos, óculos e movimentos de perfil.
+- **Sinais no Áudio:** Como perceber falhas de entonação, ritmo, ausência de respiração, ruído de fundo artificial e pedidos urgentes (além da dica da **palavra-código** em família).
+- **Limites da Detecção:** Por que apenas "olhar e ouvir" não basta — o impacto da compressão no WhatsApp/redes sociais e a falibilidade de detectores automáticos.
+- **Método de Verificação em 5 Passos:** Passo a passo rápido para checar a origem, buscar em fontes confiáveis, usar busca reversa de imagem e confirmar por outro canal.
+- **Ferramentas de Checagem:** Tabela de referência rápida com *Google Lens*, *TinEye*, *InVID-WeVerify* e agências de checagem (*Lupa*, *Aos Fatos*, *Comprova*, *Fato ou Fake*).
+- **Golpes Mais Comuns com IA:** Falso parente pedindo Pix, falso chefe em videochamada, famosos promovendo investimentos fraudulentos, montagens íntimas e desinformação eleitoral.
+- **Fui Vítima. E agora?:** Guia de ação rápida para bloqueio bancário (MED/Pix), coleta de provas, denúncia nas plataformas, Boletim de Ocorrência e apoio (SaferNet).
+- **Quiz Interativo:** 5 situações reais do dia a dia com feedback imediato para testar sua atenção contra golpes e deepfakes.
+- **Perguntas Frequentes (FAQ):** Respostas diretas para as principais dúvidas sobre IA e vídeos falsos.
 
 ---
 
